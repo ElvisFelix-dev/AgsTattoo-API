@@ -1,71 +1,130 @@
-🧷 Tattoo Studio Manager
 
-Plataforma de gerenciamento para estúdios de tatuagem, desenvolvida com a stack MERN (MongoDB, Express, React, Node.js).Permite cadastro de clientes, histórico de serviços, agendamentos, formulários médicos, controle financeiro e envio de notificações por e-mail e WhatsApp.
+# 🧷 Tattoo Studio Manager
 
-📦 Tecnologias
+Plataforma de gerenciamento para estúdios de tatuagem, desenvolvida com a stack MERN (MongoDB, Express, React, Node.js).
+Permite cadastro de clientes, histórico de serviços, agendamentos, formulários médicos, controle financeiro e envio de notificações por e-mail e WhatsApp.
 
-Frontend: ReactJS + TailwindCSS (Vite)
+---
 
-Backend: Node.js + Express
+## 📦 Tecnologias
 
-Banco de dados: MongoDB (Mongoose)
+- **Frontend:** ReactJS + TailwindCSS (Vite)
+- **Backend:** Node.js + Express
+- **Banco de dados:** MongoDB (Mongoose)
+- **Upload de imagens:** Cloudinary
+- **Autenticação:** JWT
+- **Envio de e-mail:** Nodemailer (Gmail)
+- **WhatsApp:** Twilio (ou similar)
 
-Upload de imagens: Cloudinary
+---
 
-Autenticação: JWT
+## 🔐 Recursos da aplicação
 
-Envio de e-mail: Nodemailer (Gmail)
+### 👤 Admin (usuário autenticado)
+- Cadastro e login
+- Redefinição de senha via token por e-mail
 
-WhatsApp: Twilio (ou similar)
+### 👥 Clientes
+- Cadastro com:
+  - Nome, telefone, e-mail, CPF, endereço
+  - Foto de perfil (opcional)
+  - Questionário médico
+  - Assinatura digital via touch
 
-🔐 Recursos da aplicação
+- Busca por nome, CPF ou data de atendimento
 
-👤 Admin (usuário autenticado)
+### 📋 Histórico de Atendimento
+- Armazena data, orçamento, artista responsável
+- Upload de desenho definido (design)
+- Upload de fotos da tatuagem finalizada
+- Anotações gerais
+- Edição e remoção de entradas
 
-Cadastro e login
+### 📅 Agendamento
+- Criado apenas por admin
+- Associado a cliente já existente (ou cria novo)
+- Envio automático de e-mail e WhatsApp ao cliente com data e serviço
 
-Redefinição de senha via token por e-mail
+### 📊 Financeiro
+- Entradas de materiais (com nome, valor, quantidade e data)
+- Recebimentos de clientes (valor, método, data)
+- Filtro por data
+- Cálculo de saldo:
+  ```
+  saldo = totalRecebido - totalGastos
+  ```
 
-👥 Clientes
+---
 
-Cadastro com:
+## 🛠️ Instalação e Execução
 
-Nome, telefone, e-mail, CPF, endereço
+### 1. Clone o repositório
 
-Foto de perfil (opcional)
+```bash
+git clone https://github.com/seuusuario/tattoo-studio-manager.git
+cd tattoo-studio-manager
+```
 
-Questionário médico
+### 2. Instale as dependências do backend
 
-Assinatura digital via touch
+```bash
+cd backend
+npm install
+```
 
-Busca por nome, CPF ou data de atendimento
+### 3. Configure o arquivo `.env`
 
-📋 Histórico de Atendimento
+Crie o arquivo `.env` na raiz do `backend/` com:
 
-Armazena data, orçamento, artista responsável
+```env
+PORT=3333
+MONGODB_URI=mongodb+srv://<user>:<pass>@cluster.mongodb.net/tattoo
+JWT_SECRET=suachavesecreta
 
-Upload de desenho definido (design)
+EMAIL_USER=seuemail@gmail.com
+EMAIL_PASS=senhadeappdoconta
 
-Upload de fotos da tatuagem finalizada
+CLOUDINARY_CLOUD_NAME=seu_cloud_name
+CLOUDINARY_API_KEY=sua_api_key
+CLOUDINARY_API_SECRET=sua_api_secret
 
-Anotações gerais
+TWILIO_SID=your_twilio_sid
+TWILIO_AUTH=your_twilio_auth
+```
 
-Edição e remoção de entradas
+### 4. Rode o backend
 
-📅 Agendamento
+```bash
+npm run dev
+```
 
-Criado apenas por admin
+---
 
-Associado a cliente já existente (ou cria novo)
+## 📁 Estrutura de Pastas (Backend)
 
-Envio automático de e-mail e WhatsApp ao cliente com data e serviço
+```
+backend/
+├── controllers/
+├── models/
+├── routes/
+├── utils/
+├── middleware/
+├── .env
+└── server.js
+```
 
-📊 Financeiro
+---
 
-Entradas de materiais (com nome, valor, quantidade e data)
+## ✅ Próximos passos sugeridos
 
-Recebimentos de clientes (valor, método, data)
+- Painel com gráficos financeiros no frontend (ex: Recharts)
+- Dashboard de agendamentos por mês
+- Relatórios em PDF ou Excel
+- Permissões por função (admin/tatuador)
+- Upload de assinatura com armazenamento no Cloudinary
 
-Filtro por data
+---
 
-Cálculo de saldo:
+## 📄 Licença
+
+MIT - Desenvolvido por Elvis Felix

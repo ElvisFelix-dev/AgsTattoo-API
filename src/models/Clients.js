@@ -18,9 +18,9 @@ const clientSchema = new mongoose.Schema({
   history: [
     {
       date: Date,
-      artist: String,
+      artist: 'User',
       budget: String,
-      designUrl: String,
+      designUrl: [String],
       finalPhotos: [String],
       notes: String
     }

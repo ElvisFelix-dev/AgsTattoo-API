@@ -25,3 +25,21 @@ export const sendResetEmail = async (to, token) => {
 
   return transporter.sendMail(mailOptions);
 };
+
+export const sendAppointmentEmail = async (to, { name, date, service }) => {
+  const formattedDate = new Date(date).toLocaleString('pt-BR');
+
+  const mailOptions = {
+    from: `"Studio Tattoo" <${process.env.EMAIL_USER}>`,
+    to,
+    subject: 'Confirmação de Agendamento',
+    html: `
+      <p>Olá, ${name}!</p>
+      <p>Seu agendamento está confirmado para:</p>
+      <p><strong>${formattedDate}</strong> — Serviço: ${service || 'Tatuagem'}</p>
+      <p>Nos vemos em breve!</p>
+    `
+  };
+
+  return transporter.sendMail(mailOptions);
+};

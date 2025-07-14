@@ -15,12 +15,16 @@ const clientSchema = new mongoose.Schema({
 
   signatureUrl: String,
 
-  history: [
+    history: [
     {
       date: Date,
-      artist: 'User',
+      artist: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+      },
       budget: String,
-      designUrl: [String],
+      designUrl: String,
       finalPhotos: [String],
       notes: String
     }

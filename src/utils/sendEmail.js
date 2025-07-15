@@ -1,18 +1,22 @@
 import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail', // ou 'hotmail', 'outlook' etc.
+  host: 'smtp.gmail.com',
+  port: 587, // ou 587
+  secure: false, // true para 465, false para 587
   auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
+    user: process.env.EMAIL_USER ,
+    pass: process.env.EMAIL_PASSW
   }
 });
 
-export const sendResetEmail = async (to, token) => {
-  const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${token}`;
-
+// 🔄 Renomeado aqui
+export const sendEmail = async (to, token) => {
+  const resetLink = `${process.env.FRONTEND_URL}/api/auth/reset-password?token=${token}`;
+  dotenv.config()
   const mailOptions = {
-    from: `"Ags Tattoo" <${process.env.EMAIL_USER}>`,
+    from: `"Ags Tattoo" <uxaaoktattoo@gmail.com>`,
     to,
     subject: 'Recuperação de Senha - Ags Tattoo',
     html: `
@@ -23,9 +27,19 @@ export const sendResetEmail = async (to, token) => {
     `
   };
 
+  transporter.verify((error, success) => {
+    if (error) {
+      console.error('Erro ao conectar com o SMTP:', error);
+    } else {
+      console.log('✅ Conexão SMTP está pronta para enviar e-mails');
+    }
+  });
+
+  // Envia o emai
   return transporter.sendMail(mailOptions);
 };
 
+// Continuação para agendamento
 export const sendAppointmentEmail = async (to, { name, date, service }) => {
   const formattedDate = new Date(date).toLocaleString('pt-BR');
 

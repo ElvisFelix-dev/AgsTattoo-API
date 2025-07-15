@@ -3,6 +3,8 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 
+import { sendEmail } from '../utils/sendEmail.js';
+
 // ✅ Cadastro de novo admin
 export const register = async (req, res) => {
   const { userName, email, password } = req.body;
@@ -62,17 +64,21 @@ export const forgotPassword = async (req, res) => {
     if (!user) return res.status(404).json({ message: 'Usuário não encontrado' });
 
     const token = crypto.randomBytes(20).toString('hex');
-    const expires = Date.now() + 1000 * 60 * 30; // 30 minutos
+    const expires = Date.now() + 1000 * 60 * 30;
 
     user.resetPasswordToken = token;
     user.resetPasswordExpires = expires;
     await user.save();
 
-    // 🔒 Aqui você deve enviar por e-mail (ou retornar para teste)
-    res.status(200).json({
-      message: 'Token de recuperação gerado com sucesso',
-      resetToken: token
-    });
+    const resetUrl = `http://localhost:3333/api/auth/reset-password/${token}`; // ajuste conforme sua URL do frontend
+
+    await sendEmail(
+      user.email,
+      'Redefinição de senha - Tattoo Studio',
+      `Você solicitou a redefinição de senha. Use o link abaixo:\n\n${resetUrl}\n\nEste link expira em 30 minutos.`
+    );
+
+    res.status(200).json({ message: 'E-mail de recuperação enviado com sucesso' });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

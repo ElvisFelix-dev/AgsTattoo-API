@@ -32,7 +32,7 @@ app.use('/api/history', historyRoutes);
 
 // Rota de teste
 app.get('/', (req, res) => {
-  res.send('Servidor do Tattoo Studio Manager rodando! ✅');
+  res.send('Tattoo Studio Manager server running! ✅');
 });
 
 // Iniciar servidor

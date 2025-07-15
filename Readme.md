@@ -1,5 +1,5 @@
 
-# 🧷 Tattoo Studio Manager
+# 🧷 AgsTattoo Studio 
 
 Plataforma de gerenciamento para estúdios de tatuagem, desenvolvida com a stack MERN (MongoDB, Express, React, Node.js).
 Permite cadastro de clientes, histórico de serviços, agendamentos, formulários médicos, controle financeiro e envio de notificações por e-mail e WhatsApp.
@@ -61,8 +61,8 @@ Permite cadastro de clientes, histórico de serviços, agendamentos, formulário
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/seuusuario/tattoo-studio-manager.git
-cd tattoo-studio-manager
+git clone https://github.com/ElvisFelix-dev/AgsTattoo-API.git
+cd AgsTattoo-API
 ```
 
 ### 2. Instale as dependências do backend
